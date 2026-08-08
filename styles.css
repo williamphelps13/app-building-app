@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+/* Tokens follow the pre-Liquid-Glass iOS dark palette and type
+   ramp. Nothing outside this file names a Tailwind hue or a
+   pixel size, so the whole app follows a change made here. */
+@theme {
+  /* Backgrounds: iOS dark puts elevated grey groups on black. */
+  --color-grouped: var(--color-black);
+  --color-elevated: var(--color-zinc-900);
+  --color-elevated-2: var(--color-zinc-800);
+  --color-fill: var(--color-zinc-800);
+  --color-separator: var(--color-zinc-700);
+
+  /* Labels */
+  --color-label: var(--color-zinc-50);
+  --color-label-2: var(--color-zinc-400);
+  --color-label-3: var(--color-zinc-500);
+  --color-label-4: var(--color-zinc-600);
+
+  /* Tint and accents */
+  --color-tint: var(--color-sky-400);
+  --color-accent: var(--color-violet-400);
+  --color-positive: var(--color-green-400);
+  --color-negative: var(--color-red-400);
+
+  /* Type ramp in rem, so Dynamic Type and browser text size
+     settings scale it. Values are the SF text styles at 100%. */
+  --text-large-title: 2.125rem;
+  --text-large-title--line-height: 2.5625rem;
+  --text-large-title--letter-spacing: -0.02em;
+  --text-title3: 1.25rem;
+  --text-title3--line-height: 1.5625rem;
+  --text-headline: 1.0625rem;
+  --text-headline--line-height: 1.375rem;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.375rem;
+  --text-callout: 1rem;
+  --text-callout--line-height: 1.3125rem;
+  --text-subheadline: 0.9375rem;
+  --text-subheadline--line-height: 1.25rem;
+  --text-footnote: 0.8125rem;
+  --text-footnote--line-height: 1.125rem;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1rem;
+  --text-caption2: 0.6875rem;
+  --text-caption2--line-height: 0.8125rem;
+
+  /* Corner radii */
+  --radius-group: 10px;
+  --radius-control: 8px;
+  --radius-segment: 6px;
+  --radius-button: 12px;
+  --radius-sheet: 14px;
+
+  /* Minimum comfortable hit target */
+  --spacing-hit: 44px;
+  --spacing-tabbar: 49px;
+  --spacing-sheet-row: 57px;
+  --spacing-info: 22px;
+  --spacing-22: 88px;
+}
+
+@layer base {
+  body {
+    background: var(--color-grouped);
+    color: var(--color-label);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Long-pressing a control should not offer to copy or share it. */
+  button,
+  [role="slider"] {
+    -webkit-touch-callout: none;
+  }
+}
+
+@layer components {
+  /* Separators inset from the leading edge, none on the last row. */
+  .ios-list > *:last-child .ios-hairline {
+    border-bottom-width: 0;
+  }
+
+  .anim-sheet { animation: sheet-in 0.32s cubic-bezier(0.32, 0.72, 0, 1); }
+  .anim-fade { animation: fade-in 0.2s ease-out; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-sheet,
+  .anim-fade {
+    animation: none;
+  }
+}
+
+@keyframes sheet-in {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
